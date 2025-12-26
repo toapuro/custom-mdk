@@ -1,13 +1,13 @@
 [versions]
 catalogue = "4766090" # 1.8.0
 configured = "5180902" # 2.2.3
-jade = "6855440"
-jei = "7361881"
-jei-integration = "4999754"
+jade = "6855440" # 11.13.2
+jei = "7361881" # 15.20.0.128
+jei-integration = "4999754" # 10.0.0
 
 [libraries]
 catalogue = { module = "curse.maven:catalogue-459701", version.ref = "catalogue" }
 configured = { module = "curse.maven:configured-457570", version.ref = "configured" }
 jade = { module = "curse.maven:jade-324717", version.ref = "jade" }
 jei = { module = "curse.maven:jei-238222", version.ref = "jei" }
-jeiIntegration = { module = "curse.maven:jei-integration-265917", version.ref="jei-integration" }
+jeiIntegration = { module = "curse.maven:jei-integration-265917", version.ref = "jei-integration" }
