@@ -1,4 +1,4 @@
-@file:Suppress("PropertyName")
+@file:Suppress("PropertyName", "ConstPropertyName")
 
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -13,20 +13,12 @@ plugins {
 }
 
 object ModConfig {
-    const val minecraft_version = "1.20.1"
-    const val minecraft_version_range = "[1.20.1,1.21)"
-    const val forge_version = "47.4.0"
-    const val forge_version_range = "[47.4,)"
-    const val loader_version_range = "[47,)"
-    const val mapping_channel = "parchment"
-    const val mapping_version = "2023.09.03-1.20.1"
-
     const val mod_id = "examplemod"
     const val mod_name = "Example Mod"
     const val mod_license = "MIT"
     const val mod_version = "0.1.0"
-    const val mod_group_id = "io.github.meatwo310.examplemod"
-    const val mod_authors = "Meatwo310"
+    const val mod_group_id = "dev.toapuro.examplemod"
+    const val mod_authors = "toapuro"
     const val mod_description = ""
 }
 
@@ -34,7 +26,7 @@ version = ModConfig.mod_version
 group = ModConfig.mod_group_id
 
 base {
-    archivesName.set("${ModConfig.mod_id}-forge-${ModConfig.minecraft_version}")
+    archivesName.set("${ModConfig.mod_id}-forge-${libs.versions.minecraft}")
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
@@ -42,7 +34,7 @@ java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 println("Java: ${System.getProperty("java.version")}, JVM: ${System.getProperty("java.vm.version")} (${System.getProperty("java.vendor")}), Arch: ${System.getProperty("os.arch")}")
 
 minecraft {
-    mappings(ModConfig.mapping_channel, ModConfig.mapping_version)
+    mappings("parchment", libs.versions.parchment)
     copyIdeResources.set(true)
 //    accessTransformer(file("src/main/resources/META-INF/accesstransformer.cfg"))
 
@@ -88,7 +80,7 @@ sourceSets.main.get().resources {
 
 repositories {
 //    flatDir {
-//        dir("libs")
+//        dir("libs.versions.toml")
 //    }
 
 //    exclusiveContent {
@@ -118,21 +110,23 @@ repositories {
 }
 
 dependencies {
-    minecraft("net.minecraftforge:forge:${ModConfig.minecraft_version}-${ModConfig.forge_version}")
+    @Suppress("VulnerableLibrariesLocal")
+    minecraft(libs.forge)
+
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 
 //    // Mixin Extras
-//    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0")!!)
-//    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.5.0")) {
-//        jarJar.ranged(this, "[0.5.0,)")
+//    compileOnly(annotationProcessor(libs.mixinExtrasCommon.get())!!)
+//    implementation(jarJar(libs.mixinExtrasForge.get())) {
+//        jarJar.ranged(this, libs.versions.mixinExtrasRange)
 //    }
 
     // Default Dependencies
-    runtimeOnly(fg.deobf("curse.maven:catalogue-459701:4766090"))
-    runtimeOnly(fg.deobf("curse.maven:configured-457570:5180900"))
-    runtimeOnly(fg.deobf("curse.maven:jade-324717:6855440"))
-    runtimeOnly(fg.deobf("curse.maven:jei-238222:6600311"))
-    runtimeOnly(fg.deobf("curse.maven:jei-integration-265917:4999754"))
+    runtimeOnly(fg.deobf(deps.catalogue))
+    runtimeOnly(fg.deobf(deps.configured))
+    runtimeOnly(fg.deobf(deps.jade))
+    runtimeOnly(fg.deobf(deps.jei))
+    runtimeOnly(fg.deobf(deps.jeiIntegration))
 
     // Mod Dependencies
 }
@@ -144,11 +138,12 @@ mixin {
 
 tasks.named<ProcessResources>("processResources") {
     val replaceProperties = mapOf(
-        "minecraft_version" to ModConfig.minecraft_version,
-        "minecraft_version_range" to ModConfig.minecraft_version_range,
-        "forge_version" to ModConfig.forge_version,
-        "forge_version_range" to ModConfig.forge_version_range,
-        "loader_version_range" to ModConfig.loader_version_range,
+        "minecraft_version" to libs.versions.minecraft,
+        "minecraft_version_range" to libs.versions.minecraftRange,
+        "forge_version" to libs.versions.forge,
+        "forge_version_range" to libs.versions.forgeRange,
+        "loader_version_range" to libs.versions.loaderRange,
+
         "mod_id" to ModConfig.mod_id,
         "mod_name" to ModConfig.mod_name,
         "mod_license" to ModConfig.mod_license,
