@@ -1,4 +1,4 @@
-name: Build and Release
+name: Build and Test
 
 on:
   workflow_dispatch:
@@ -19,10 +19,15 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
 
-      - name: Build with Gradle Wrapper
-        run: chmod u+x gradlew && ./gradlew build
+      - name: Grant execute permission
+        run: chmod u+x gradlew
+
+      - name: Run build and test
+        run: ./gradlew build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -45,10 +50,10 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Build with Gradle Wrapper
-        run: chmod u+x gradlew && ./gradlew build
+      - name: Grant execute permission
+        run: chmod u+x gradlew
 
-      - name: GameTest
+      - name: Run GameTest
         run: ./gradlew runGameTestServer
 
       - name: Check report

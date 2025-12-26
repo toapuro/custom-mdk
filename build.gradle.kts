@@ -4,6 +4,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 plugins {
+    java
     eclipse
     idea
     `maven-publish`
@@ -74,6 +75,11 @@ minecraft {
     }
 }
 
+sourceSets {
+    test {
+    }
+}
+
 sourceSets.main.get().resources {
     srcDir("src/generated/resources")
 }
@@ -112,8 +118,8 @@ repositories {
 dependencies {
     @Suppress("VulnerableLibrariesLocal")
     minecraft(libs.forge)
-
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+    testImplementation(libs.junit)
 
 //    // Mixin Extras
 //    compileOnly(annotationProcessor(libs.mixinExtrasCommon.get())!!)
