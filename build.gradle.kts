@@ -116,7 +116,7 @@ repositories {
 }
 
 dependencies {
-    @Suppress("VulnerableLibrariesLocal")
+    @Suppress("VulnerableLibrariesLocal", "RedundantSuppression")
     minecraft(libs.forge)
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     testImplementation(libs.junit)
