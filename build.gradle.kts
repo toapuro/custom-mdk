@@ -137,6 +137,10 @@ dependencies {
     // Mod Dependencies
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
 mixin {
     add(sourceSets.main.get(), "${ModConfig.mod_id}.refmap.json")
     config("${ModConfig.mod_id}.mixins.json")
