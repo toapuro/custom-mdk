@@ -27,7 +27,7 @@ version = ModConfig.mod_version
 group = ModConfig.mod_group_id
 
 base {
-    archivesName.set("${ModConfig.mod_id}-forge-${libs.versions.minecraft.get()}")
+    archivesName.set(provider { "${ModConfig.mod_id}-forge-${libs.versions.minecraft.get()}" })
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
