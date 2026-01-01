@@ -148,11 +148,11 @@ mixin {
 
 tasks.named<ProcessResources>("processResources") {
     val replaceProperties = mapOf(
-        "minecraft_version" to libs.versions.minecraft,
-        "minecraft_version_range" to libs.versions.minecraftRange,
-        "forge_version" to libs.versions.forge,
-        "forge_version_range" to libs.versions.forgeRange,
-        "loader_version_range" to libs.versions.loaderRange,
+        "minecraft_version" to libs.versions.minecraft.get(),
+        "minecraft_version_range" to libs.versions.minecraftRange.get(),
+        "forge_version" to libs.versions.forge.get(),
+        "forge_version_range" to libs.versions.forgeRange.get(),
+        "loader_version_range" to libs.versions.loaderRange.get(),
 
         "mod_id" to ModConfig.mod_id,
         "mod_name" to ModConfig.mod_name,
