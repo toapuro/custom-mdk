@@ -35,7 +35,7 @@ jobs:
           path: build/libs/
           name: artifact
 
-  run-check:
+  run-gametest:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
