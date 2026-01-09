@@ -19,6 +19,7 @@ build
 
 # other
 eclipse
+.kotlin
 /run
 /run-*
 /src/generated/resources/.cache
