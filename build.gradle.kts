@@ -128,6 +128,9 @@ dependencies {
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     testImplementation(libs.junit)
 
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+
 //    // Mixin Extras
 //    compileOnly(annotationProcessor(libs.mixinExtrasCommon.get())!!)
 //    implementation(jarJar(libs.mixinExtrasForge.get())) {

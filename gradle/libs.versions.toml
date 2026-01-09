@@ -3,6 +3,7 @@ minecraft = "1.20.1"
 forge = "1.20.1-47.4.0"
 mixinExtras = "0.5.0"
 junit = "5.10.1"
+lombok = "1.18.42"
 
 minecraftRange = "[1.20.1]"
 forgeRange = "[47.4,)"
@@ -13,5 +14,6 @@ parchment = "2023.09.03-1.20.1"
 [libraries]
 forge = { module = "net.minecraftforge:forge", version.ref = "forge" }
 junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 mixinExtrasCommon = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixinExtras" }
 mixinExtrasForge = { module = "io.github.llamalad7:mixinextras-forge", version.ref = "mixinExtras" }
