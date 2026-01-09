@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter
 
 plugins {
     java
+    kotlin("jvm") version "2.1.+"
     eclipse
     idea
     `maven-publish`
