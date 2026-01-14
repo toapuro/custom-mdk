@@ -161,6 +161,7 @@ tasks.named<ProcessResources>("processResources") {
         "forge_version" to libs.versions.forge.get(),
         "forge_version_range" to libs.versions.forgeRange.get(),
         "loader_version_range" to libs.versions.loaderRange.get(),
+        "kff_version_range" to deps.versions.kffRange.get(),
 
         "mod_id" to ModConfig.mod_id,
         "mod_name" to ModConfig.mod_name,
