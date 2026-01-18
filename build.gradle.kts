@@ -1,4 +1,4 @@
-@file:Suppress("PropertyName", "ConstPropertyName")
+@file:Suppress("PropertyName")
 
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -15,20 +15,20 @@ plugins {
 }
 
 object ModConfig {
-    const val mod_id = "examplemod"
-    const val mod_name = "Example Mod"
-    const val mod_license = "MIT"
-    const val mod_version = "0.1.0"
-    const val mod_group_id = "dev.toapuro.examplemod"
-    const val mod_authors = "toapuro"
-    const val mod_description = ""
+    const val MOD_ID = "examplemod"
+    const val MOD_NAME = "Example Mod"
+    const val MOD_LICENSE = "MIT"
+    const val MOD_VERSION = "0.1.0"
+    const val MOD_GROUP_ID = "dev.toapuro.examplemod"
+    const val MOD_AUTHORS = "toapuro"
+    const val MOD_DESCRIPTION = ""
 }
 
-version = ModConfig.mod_version
-group = ModConfig.mod_group_id
+version = "v${ModConfig.MOD_VERSION}"
+group = ModConfig.MOD_GROUP_ID
 
 base {
-    archivesName.set(provider { "${ModConfig.mod_id}-forge-${libs.versions.minecraft.get()}" })
+    archivesName.set(provider { "${ModConfig.MOD_ID}-${libs.versions.minecraft.get()}-forge" })
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
@@ -45,7 +45,7 @@ minecraft {
         property("forge.logging.markers", "REGISTRIES")
         property("forge.logging.console.level", "debug")
 
-        mods.create(ModConfig.mod_id) {
+        mods.create(ModConfig.MOD_ID) {
             source(sourceSets.main.get())
         }
 
@@ -55,23 +55,23 @@ minecraft {
 
     runs {
         create("client") {
-            property("forge.enabledGameTestNamespaces", ModConfig.mod_id)
+            property("forge.enabledGameTestNamespaces", ModConfig.MOD_ID)
         }
 
         create("server") {
             workingDirectory(project.file("run-server"))
-            property("forge.enabledGameTestNamespaces", ModConfig.mod_id)
+            property("forge.enabledGameTestNamespaces", ModConfig.MOD_ID)
             args("--nogui")
         }
 
         create("gameTestServer") {
             workingDirectory(project.file("run-server"))
-            property("forge.enabledGameTestNamespaces", ModConfig.mod_id)
+            property("forge.enabledGameTestNamespaces", ModConfig.MOD_ID)
         }
 
         create("data") {
             workingDirectory(project.file("run-data"))
-            args("--mod", ModConfig.mod_id, "--all", "--output", file("src/generated/resources/"), "--existing", file("src/main/resources/"))
+            args("--mod", ModConfig.MOD_ID, "--all", "--output", file("src/generated/resources/"), "--existing", file("src/main/resources/"))
         }
     }
 }
@@ -87,7 +87,12 @@ sourceSets.main.get().resources {
 
 repositories {
 //    flatDir {
-//        dir("libs.versions.toml")
+//        dir("libs")
+//    }
+
+//    maven {
+//        name = "ModMaven"
+//        url = uri("https://modmaven.dev/")
 //    }
 
 //    exclusiveContent {
@@ -150,8 +155,8 @@ tasks.test {
 }
 
 mixin {
-    add(sourceSets.main.get(), "${ModConfig.mod_id}.refmap.json")
-    config("${ModConfig.mod_id}.mixins.json")
+    add(sourceSets.main.get(), "${ModConfig.MOD_ID}.refmap.json")
+    config("${ModConfig.MOD_ID}.mixins.json")
 }
 
 tasks.named<ProcessResources>("processResources") {
@@ -163,12 +168,12 @@ tasks.named<ProcessResources>("processResources") {
         "loader_version_range" to libs.versions.loaderRange.get(),
         "kff_version_range" to deps.versions.kffRange.get(),
 
-        "mod_id" to ModConfig.mod_id,
-        "mod_name" to ModConfig.mod_name,
-        "mod_license" to ModConfig.mod_license,
-        "mod_version" to ModConfig.mod_version,
-        "mod_authors" to ModConfig.mod_authors,
-        "mod_description" to ModConfig.mod_description,
+        "mod_id" to ModConfig.MOD_ID,
+        "mod_name" to ModConfig.MOD_NAME,
+        "mod_license" to ModConfig.MOD_LICENSE,
+        "mod_version" to ModConfig.MOD_VERSION,
+        "mod_authors" to ModConfig.MOD_AUTHORS,
+        "mod_description" to ModConfig.MOD_DESCRIPTION,
     )
 
     inputs.properties(replaceProperties)
@@ -180,12 +185,12 @@ tasks.named<ProcessResources>("processResources") {
 
 tasks.named<Jar>("jar") {
     manifest.attributes(
-        "Specification-Title" to ModConfig.mod_id,
-        "Specification-Vendor" to ModConfig.mod_authors,
+        "Specification-Title" to ModConfig.MOD_ID,
+        "Specification-Vendor" to ModConfig.MOD_AUTHORS,
         "Specification-Version" to "1",
         "Implementation-Title" to project.name,
         "Implementation-Version" to archiveVersion,
-        "Implementation-Vendor" to ModConfig.mod_authors,
+        "Implementation-Vendor" to ModConfig.MOD_AUTHORS,
         "Implementation-Timestamp" to ZonedDateTime.now()
             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ"))
     )
