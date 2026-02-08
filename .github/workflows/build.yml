@@ -1,9 +1,8 @@
-name: Build and Test
+name: Build
 
 on:
   workflow_dispatch:
   push:
-  pull_request:
 
 jobs:
   build:
@@ -34,36 +33,3 @@ jobs:
         with:
           path: build/libs/
           name: artifact
-
-  run-gametest:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-
-      - name: Grant execute permission
-        run: chmod u+x gradlew
-
-      - name: Run GameTest
-        run: ./gradlew runGameTestServer
-
-      - name: Check report
-        run: |
-          ! test -d "run-server/crash-reports"
-
-      - name: Upload failed test report
-        if: failure()
-        uses: actions/upload-artifact@v6
-        with:
-          path: |
-            run-server/crash-reports/*
-          name: Test-Report-${{ github.run_number }}

@@ -1,0 +1,46 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run-gametest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'jetbrains'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Grant execute permission
+        run: chmod u+x gradlew
+
+      - name: Run GameTest
+        run: ./gradlew runGameTestServer
+
+      - name: Check report
+        run: |
+          ! test -d "run-server/crash-reports"
+
+      - name: Upload failed test report
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          path: |
+            run-server/crash-reports/*
+          name: Test-Report-${{ github.run_number }}
+
