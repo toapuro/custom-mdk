@@ -22,6 +22,8 @@ object ModConfig {
     const val MOD_GROUP_ID = "dev.toapuro.examplemod"
     const val MOD_AUTHORS = "toapuro"
     const val MOD_DESCRIPTION = ""
+    const val MOD_DISPLAY_URL = ""
+    const val MOD_CREDITS = ""
 }
 
 version = "v${ModConfig.MOD_VERSION}"
@@ -56,12 +58,14 @@ minecraft {
     runs {
         create("client") {
             property("forge.enabledGameTestNamespaces", ModConfig.MOD_ID)
+            jvmArgs("-XX:+AllowEnhancedClassRedefinition")
         }
 
         create("server") {
             workingDirectory(project.file("run-server"))
             property("forge.enabledGameTestNamespaces", ModConfig.MOD_ID)
             args("--nogui")
+            jvmArgs("-XX:+AllowEnhancedClassRedefinition")
         }
 
         create("gameTestServer") {
@@ -174,6 +178,8 @@ tasks.named<ProcessResources>("processResources") {
         "mod_version" to ModConfig.MOD_VERSION,
         "mod_authors" to ModConfig.MOD_AUTHORS,
         "mod_description" to ModConfig.MOD_DESCRIPTION,
+        "mod_display_url" to ModConfig.MOD_DISPLAY_URL,
+        "mod_credits" to ModConfig.MOD_CREDITS
     )
 
     inputs.properties(replaceProperties)
