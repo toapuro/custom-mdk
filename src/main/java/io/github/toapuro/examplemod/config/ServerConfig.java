@@ -1,4 +1,4 @@
-package dev.toapuro.examplemod.config;
+package io.github.toapuro.examplemod.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
