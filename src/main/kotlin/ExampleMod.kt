@@ -1,4 +1,4 @@
-package dev.toapuro.examplemod
+package io.github.toapuro.examplemod
 
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
