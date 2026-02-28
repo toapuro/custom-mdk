@@ -37,6 +37,15 @@ java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 
 println("Java: ${System.getProperty("java.version")}, JVM: ${System.getProperty("java.vm.version")} (${System.getProperty("java.vendor")}), Arch: ${System.getProperty("os.arch")}")
 
+sourceSets {
+    create("gametest") {
+        java.srcDir("src/gametest/java")
+
+        compileClasspath += sourceSets.main.get().output + sourceSets.main.get().compileClasspath
+        runtimeClasspath += sourceSets.main.get().output + sourceSets.main.get().runtimeClasspath
+    }
+}
+
 minecraft {
     mappings("parchment", libs.versions.parchment)
     copyIdeResources.set(true)
@@ -71,6 +80,8 @@ minecraft {
         create("gameTestServer") {
             workingDirectory(project.file("run-server"))
             property("forge.enabledGameTestNamespaces", ModConfig.MOD_ID)
+
+            mods[ModConfig.MOD_ID].source(sourceSets["gametest"])
         }
 
         create("data") {
