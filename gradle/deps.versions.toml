@@ -16,4 +16,4 @@ jade = { module = "curse.maven:jade-324717", version.ref = "jade" }
 jei = { module = "curse.maven:jei-238222", version.ref = "jei" }
 jeiIntegration = { module = "curse.maven:jei-integration-265917", version.ref = "jei-integration" }
 
-kotlinforforge = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
+kotlinlangforge = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }

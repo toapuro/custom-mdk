@@ -123,12 +123,6 @@ repositories {
 //        }
 //    }
 
-    maven {
-        name = "Kotlin for Forge"
-        url = uri("https://thedarkcolour.github.io/KotlinForForge/")
-        content { includeGroup("thedarkcolour") }
-    }
-
     exclusiveContent {
         forRepository {
             maven {
@@ -138,6 +132,18 @@ repositories {
         forRepositories(fg.repository)
         filter {
             includeGroup("curse.maven")
+        }
+    }
+
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Kotlin for Forge"
+                url = uri("https://thedarkcolour.github.io/KotlinForForge/")
+            }
+        }
+        filter {
+            includeGroup("thedarkcolour")
         }
     }
 }
@@ -162,7 +168,7 @@ dependencies {
     runtimeOnly(fg.deobf(deps.jeiIntegration))
 
     // Mod Dependencies
-    implementation(deps.kotlinforforge)
+    runtimeOnly(deps.kotlinlangforge)
 }
 
 tasks.test {
