@@ -134,6 +134,18 @@ repositories {
             includeGroup("curse.maven")
         }
     }
+
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Kotlin for Forge"
+                url = uri("https://thedarkcolour.github.io/KotlinForForge/")
+            }
+        }
+        filter {
+            includeGroup("thedarkcolour")
+        }
+    }
 }
 
 dependencies {
@@ -156,6 +168,7 @@ dependencies {
     runtimeOnly(fg.deobf(deps.jeiIntegration))
 
     // Mod Dependencies
+    runtimeOnly(deps.kotlinlangforge)
 }
 
 tasks.test {
